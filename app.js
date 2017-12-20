@@ -66,6 +66,94 @@ function searchByName(people){
   // TODO: find the person using the name they entered
   return foundPerson;
 }
+function searchByAge(people){
+  var age = promptFor("What is the person's age?", chars);
+  var foundPerson = people.filter(function(person){
+    if(person.age === age){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return foundPerson;
+}
+
+function searchByGender(people){
+  var gender = promptFor("What is the person's gender?", chars);
+  var foundPerson = people.filter(function(person){
+    if(person.gender === gender){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return foundPerson;
+}
+
+function searchByDob(people){
+  var dob = promptFor("What is the person's date of birth? mm/dd/yyyy", chars);
+  var foundPerson = people.filter(function(person){
+    if(person.dob === dob){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return foundPerson;
+}
+
+function searchByHeight(people){
+  var height = promptFor("What is the person's height in inches?", chars);
+  var foundPerson = people.filter(function(person){
+    if(person.height === height){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return foundPerson;
+}
+
+function searchByWeight(people){
+  var weight = promptFor("What is the person's weight in lbs?", chars);
+  var foundPerson = people.filter(function(person){
+    if(person.weight === weight){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return foundPerson;
+}
+
+function searchByEyeColor(people){
+  var eyeColor = promptFor("What is the person's eye color?", chars);
+  var foundPerson = people.filter(function(person){
+    if(person.eyeColor === eyeColor){
+      return true;
+    }
+    return false;
+  })
+  return foundPerson;
+}
+
+function searchByOccupation(people){
+  var occupation = promptFor("What is the person's occupation?", chars);
+  var foundPerson = people.filter(function(person){
+    if(person.occupation === occupation){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return foundPerson;
+}
 
 // alerts a list of people
 function displayPeople(people){
