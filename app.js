@@ -9,6 +9,7 @@ function app(people){
     case 'yes':
     // TODO: search by name
     var foundPerson = searchByName(people);
+    mainMenu(foundPerson[0], people);
     break;
     case 'no':
     var foundPerson = searchByOtherCriteria(people);
@@ -28,24 +29,26 @@ function app(people){
 
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people){
-
   /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
-
   if(!person){
     alert("Could not find that individual.");
     return app(people); // restart
   }
-
-  var displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
+   
+   var displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
 
   switch(displayOption){
+   // displayPerson(person);
     case "info":
     // TODO: get person's info
+    displayPerson(person);
     break;
     case "family":
+    searchForFamilyMembers(person);
     // TODO: get person's family
     break;
     case "descendants":
+    displayDescendants(person);
     // TODO: get person's descendants
     break;
     case "restart":
@@ -71,19 +74,25 @@ function searchByName(people){
     }
   })
   // TODO: find the person using the name they entered
-  return foundPerson;
+ return foundPerson;
 
+//return displayPerson(); ?
+//var result = firstName.filter(searchByName) += lastName.filter(searchByName);
 }
 
 
+
 function searchByOtherCriteria(people){
-var userInput = prompt("What do you know about this person? Date of Birth? Height? Occupation? Eye color? Gender? Weight?");
+var userInput = prompt("What do you know about this person? Date of Birth? Age? Height? Occupation? Eye color? Gender? Weight?");
     switch(userInput){
       case "Date of Birth":
-          prompt("Please enter the person's date of birth, mm/dd/yyyy");
+          prompt("Please enter the person's date of birth, mm/dd/yyyy"); //get rid of all these prompts or the prompts in the functions?
           var foundPerson =  searchByBirthday(); 
         //return people?/person? something?
           break;
+      case "Age":
+          prompt("Please enter the person's age");
+          var foundPerson = searchByAge();
       case "Height":
           prompt("Please enter the person's height in inches");
           var foundPerson = searchByHeight();
@@ -98,7 +107,7 @@ var userInput = prompt("What do you know about this person? Date of Birth? Heigh
           break;
       case "Gender":
           prompt("Please enter the person's gender");
-          var foundPerson = searchByGender();
+          var foundPerson = searchByGender([3]);
           break;
       case "Weight":
           prompt("Please enter the person's weight in lbs");
@@ -110,10 +119,23 @@ var userInput = prompt("What do you know about this person? Date of Birth? Heigh
     } 
 }
 
-function searchByBirthday(people){
-  var age = promptFor("What is the person's birthday?", chars);
+function searchByDob(people){
+  var dob = promptFor("What is the person's date of birth? mm/dd/yyyy", chars);
   var foundPerson = people.filter(function(person){
-    if(person.birthday === birthday){
+    if(person.dob === dob){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return foundPerson;
+}
+
+function searchByAge(people){
+  var age = promptFor("What is the person's age?", chars);
+  var foundPerson = people.filter(function(person){
+    if(person.age === age){
       return true;
     }
     else{
@@ -127,19 +149,6 @@ function searchByGender(people){
   var gender = promptFor("What is the person's gender?", chars);
   var foundPerson = people.filter(function(person){
     if(person.gender === gender){
-      return true;
-    }
-    else{
-      return false;
-    }
-  })
-  return foundPerson;
-}
-
-function searchByDob(people){
-  var dob = promptFor("What is the person's date of birth? mm/dd/yyyy", chars);
-  var foundPerson = people.filter(function(person){
-    if(person.dob === dob){
       return true;
     }
     else{
@@ -211,8 +220,29 @@ function displayPerson(person){
   // height, weight, age, name, occupation, eye color.
   var personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
-  // TODO: finish getting the rest of the information to display
+  personInfo += "Gender: " + person.gender + "\n";  
+  personInfo += "Birthday: " + person.dob + "\n";
+  personInfo += "Height: " + person.height + "\n";
+  personInfo += "Weight: " + person.weight + "\n";
+  personInfo += "Eye Color: " + person.eyeColor + "\n";
+  personInfo += "Occupation: " + person.occupation + "\n";
+  personInfo += "Parents: " + person.parents + "\n";
+  personInfo += "Spouse: " + person.currentSpouse + "\n";
+
   alert(personInfo);
+}
+
+function searchForFamilyMembers(person){
+  var family = "Person's Family: " + person.parents;
+
+  alert(family);
+}
+
+
+function displayDescendants(person){
+  var descendants = ""
+
+  alert(descendants);
 }
 
 // function that prompts and validates user input
@@ -236,4 +266,15 @@ function chars(input){
 //for(i=0; i<person.length; i++){
  // person[i].firstName;
 //}
+
+//if parent id===id && spouse id === id, they're family
+//check for siblings, must have same parents id
+//if parents id=== id, they're descendents 
+//display first and last name of each person
+//search for children
+//search for parents
+//search for current spouse
+//function searchForFamilyMembers
+//must use recursion
+//
     
