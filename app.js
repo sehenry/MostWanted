@@ -44,7 +44,7 @@ function mainMenu(person, people){
     displayPerson(person);
     break;
     case "family":
-    searchForFamilyMembers(person);
+    searchForFamilyMembers(person, people);
     // TODO: get person's family
     break;
     case "descendants":
@@ -106,8 +106,8 @@ var userInput = prompt("What do you know about this person? Date of Birth? Age? 
           var foundPerson = searchByEyeColor();
           break;
       case "Gender":
-          prompt("Please enter the person's gender");
-          var foundPerson = searchByGender([3]);
+          //prompt("Please enter the person's gender");
+          var foundPerson = searchByGender();
           break;
       case "Weight":
           prompt("Please enter the person's weight in lbs");
@@ -145,7 +145,7 @@ function searchByAge(people){
   return foundPerson;
 }
 
-function searchByGender(people){
+function searchByGender(person){
   var gender = promptFor("What is the person's gender?", chars);
   var foundPerson = people.filter(function(person){
     if(person.gender === gender){
@@ -232,18 +232,83 @@ function displayPerson(person){
   alert(personInfo);
 }
 
-function searchForFamilyMembers(person){
-  var family = "Person's Family: " + person.parents;
+function getNameFromId(person){ //figure out how to make this a function that return full names instead of ID's. Is it possible?
+  var fullName = person.firstName += person.lastName;
+  if (person){
+    return fullName
+  }
 
-  alert(family);
+}
+function searchForFamilyMembers(foundPerson, people){ //should I have this be the only function, and use siblings, descendants and spouse as a var, or each a function?
+  var parents= people.filter(function(person){
+    if(foundPerson.parents[0] === person.id || foundPerson.parents[1] === person.id){
+      return true;
+    }
+
+    else{
+      return false;
+    }
+  })
+   var siblings = people.filter(function(person){
+    if(foundPerson.parents[0] === person.parents[0]){
+      return true;
+    }
+    else if (foundPerson.parents[1] === person.parents[1]){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  var currentSpouse = people.filter(function(person){
+    if(foundPerson.currentSpouse === person.id){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  var children = people.filter(function(person){
+    if(foundPerson.id === person.parents[0] || foundPerson.id === person.parents[1]){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+
+  var familyMembers = parents.concat(siblings, currentSpouse, children);
+
+  displayPeople(familyMembers);
 }
 
+//function findSiblings(person){
+//  var siblingNames = person.firstName += person.lastName; 
+//  if (person.parents === person.parents){
+//    return siblingNames 
+//  }
+//}
 
-function displayDescendants(person){
-  var descendants = ""
 
-  alert(descendants);
-}
+//function displayDescendants(person){
+//  var descendants = ""
+//var grandchildren = "Grandchildren: " +  people.filter(function(person){
+//    if(){
+//      return true;
+//    }
+//    else{
+//      return false;
+//    }
+//  var grandparents = "Grandparents: " + people.filter(function(person){
+//    if(){
+//      return true;
+//    }
+//    else{
+//      return false;
+//    }
+////
+////  alert(descendants);
+////}
 
 // function that prompts and validates user input
 function promptFor(question, valid){
