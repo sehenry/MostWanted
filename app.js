@@ -10,7 +10,7 @@ function app(people){
     
     case 'no':
       var foundPerson = searchByOtherCriteria(people);
-      mainMenu(foundPerson[0], people);
+      mainMenu(foundPerson, people);
     break;
     
     default:
@@ -78,27 +78,26 @@ var userInput = prompt("What do you know about this person? Date of Birth? Age? 
     switch(userInput){
       
       case "Age":
-          var foundPerson = searchByAge();
+          var foundPerson = searchByAge(people);
       
       case "Height":
-          var foundPerson = searchByHeight();
+          var foundPerson = searchByHeight(people);
           break;
       
       case "Occupation":
-          var foundPerson = searchByOccupation();    
+          var foundPerson = searchByOccupation(people);    
           break;
       
       case "Eye color":
-          var foundPerson = searchByEyeColor();
-          //mainMenu(foundPerson, people);
+          var foundPerson = searchByEyeColor(people);
           break;
 
       case "Gender":
-          var foundPerson = searchByGender();
+          var foundPerson = searchByGender(people);
           break;
       
       case "Weight":
-          var foundPerson = searchByWeight();
+          var foundPerson = searchByWeight(people);
           break;
       
       default:
@@ -117,10 +116,10 @@ function searchByAge(people){
       return false;
     }
   })
-  return foundPerson;
+  displayPeople(foundPerson);
 }
 
-function searchByGender(person){
+function searchByGender(people){
   var gender = promptFor("What is the person's gender?", chars);
   var foundPerson = people.filter(function(person){
     if(person.gender === gender){
@@ -130,7 +129,7 @@ function searchByGender(person){
       return false;
     }
   })
-  return foundPerson;
+  displayPeople(foundPerson);
 }
 
 function searchByHeight(people){
@@ -143,7 +142,7 @@ function searchByHeight(people){
       return false;
     }
   })
-  return foundPerson;
+  displayPeople(foundPerson);
 }
 
 function searchByWeight(people){
@@ -156,18 +155,21 @@ function searchByWeight(people){
       return false;
     }
   })
-  return foundPerson;
+  displayPeople(foundPerson);
 }
 
 function searchByEyeColor(people){
   var eyeColor = promptFor("What is the person's eye color?", chars);
   var foundPerson = people.filter(function(person){
-    if(foundPerson.eyeColor === eyeColor){
+    if(person.eyeColor === eyeColor){
       return true;
     }
-    return false;
+    else {
+      return false;
+    }
   })
-  return foundPerson;
+
+  displayPeople(foundPerson);
 }
 
 function searchByOccupation(people){
@@ -180,7 +182,7 @@ function searchByOccupation(people){
       return false;
     }
   })
-  return foundPerson;
+  displayPeople(foundPerson);
 }
 
 // alerts a list of people
@@ -205,7 +207,7 @@ function displayPerson(person){
   alert(personInfo);
 }
 
-function searchForFamilyMembers(foundPerson, people){ //should I have this be the only function, and use siblings, descendants and spouse as a var, or each a function?
+function searchForFamilyMembers(foundPerson, people){ 
   var parents= people.filter(function(person){
     if(foundPerson.parents[0] === person.id || foundPerson.parents[1] === person.id){
       return true;
@@ -291,13 +293,9 @@ function chars(input){
 //}
 
 //if parent id===id && spouse id === id, they're family
-//check for siblings, must have same parents id
 //if parents id=== id, they're descendents 
 //display first and last name of each person
 //search for children
-//search for parents
-//search for current spouse
-//function searchForFamilyMembers
 //must use recursion
 //
     
