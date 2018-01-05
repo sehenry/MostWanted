@@ -1,7 +1,7 @@
 // You may modify this for testing purposes.
 const data = [
 	{
-		"id": 272822514,
+		"id": 272822514, //this in index [0] //this is an object
 		"firstName": "Billy",
 		"lastName": "Bob",
 		"gender": "male",
@@ -14,7 +14,7 @@ const data = [
 		"currentSpouse": 401222887
 	},
 	{
-		"id": 401222887,
+		"id": 401222887, //this is index[0]
 		"firstName": "Uma",
 		"lastName": "Bob",
 		"gender": "female",
