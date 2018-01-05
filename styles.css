@@ -3,11 +3,37 @@
 }
 
 #mostWantedHeading{
-	font-size: 80px;
+	font-family: 'Black Ops One';
+	font-size: 75px;
 	color: white;
 	text-align: center;
+	background: rgba(255, 0, 0, .6);
+	margin-left:300px;
+	margin-right:300px;
+	border-style:solid;
+	border-width: 10px;
+	border-color:white;
+	text-shadow: 6px 6px black;
 
 }
 #startSearching{
+	font-size: 30px;
+	margin-left: 625px;
+	color:white;
+	background: rgba(255, 0, 0, .5);
+	border-color:rgba(255, 0, 0, .5);
+	border-width: 10px;
+	margin-top: 30px;
+}
+
+#description{
+	font-size: 24px;
+	color:white;
 	text-align: center;
+	margin-right:150px;
+	margin-left:150px;
+	background: rgba(0, 0, 0, .6);
+	border-style:solid;
+	border-width:2px;
+	border-color:white;
 }
