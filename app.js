@@ -1,5 +1,3 @@
-
-// app is the function called to start the entire application
 function app(people){
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   switch(searchType){
@@ -10,27 +8,18 @@ function app(people){
     
     case 'no':
       var foundPerson = searchByOtherCriteria(people);
-      //var continueSearchOrFound = promptFor("Did you find who you were looking for? Please enter 'yes' or 'no'", yesNo).toLowerCase();
-      //  if(continueSearchOrFound === "yes"){
-      //      displayOption();
-      //  }
-      //  else(continueSearchOrFound === "no"){
-//
-      //  }
     break;
     
     default:
-    app(people); // restart app
+    app(people);
     break;
   }
 }
 
-// Menu function to call once you find who you are looking for
 function mainMenu(person, people){
-  /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
   if(!person){
     alert("Could not find that individual.");
-    return app(people); // restart
+    return app(people);
   }
    
    var displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
@@ -48,6 +37,7 @@ function mainMenu(person, people){
     case "descendants":
       var allDescendants = displayDescendants(person, people);
       displayPeople(allDescendants);
+      searchAgain();
     break;
 
     case "restart":
@@ -109,6 +99,7 @@ function searchByOtherCriteria(people){
   if(found === "yes"){
     people = searchByWeight(people);
   }
+  searchAgain();
 }
 
 function getAge(){
@@ -200,7 +191,6 @@ function searchByOccupation(people){
   return foundPerson;
 }
 
-// alerts a list of people
 function displayPeople(people){
   alert(people.map(function(person){
     return person.firstName + " " + person.lastName;
@@ -220,7 +210,21 @@ function displayPerson(person){
   personInfo += "Spouse: " + person.currentSpouse + "\n";
 
   alert(personInfo);
+  searchAgain();
 }
+
+function searchAgain(input){
+  var searchAgain = promptFor("Did you find who you were looking for?", yesNo);
+  if(searchAgain === "yes"){
+    alert("Glad we could help!");
+    return true;
+  }
+  if(searchAgain === "no"){
+    alert("Please try searching again!");
+    return true;
+  }
+}
+
 
 function searchForFamilyMembers(foundPerson, people){ 
   var parents= people.filter(function(person){
@@ -263,6 +267,7 @@ function searchForFamilyMembers(foundPerson, people){
   var familyMembers = parents.concat(siblings, currentSpouse, children);
 
   displayPeople(familyMembers);
+  searchAgain();
 }
 
 
@@ -279,12 +284,9 @@ function displayDescendants(foundPerson, people){
   }
   var allDescendants = descendants.concat(totalDescendants);
  
- 
  return allDescendants;
- 
 }
 
-// function that prompts and validates user input
 function promptFor(question, valid){
   do{
     var response = prompt(question).trim();
@@ -292,16 +294,11 @@ function promptFor(question, valid){
   return response;
 }
 
-// helper function to pass into promptFor to validate yes/no answers
 function yesNo(input){
   return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
 }
 
-// helper function to pass in as default promptFor validation
+
 function chars(input){
   return true; // default validation only
 }
-
-//for(i=0; i<person.length; i++){
- // person[i].firstName;
-//}
