@@ -137,7 +137,7 @@ function searchByGender(people){
 function searchByHeight(people){
   var height = promptFor("What is the person's height in inches?", chars);
   var foundPerson = people.filter(function(person){
-    if(person.height === height){
+    if(person.height == height){
       return true;
     }
     else{
@@ -151,7 +151,7 @@ function searchByHeight(people){
 function searchByWeight(people){
   var weight = promptFor("What is the person's weight in lbs?", chars);
   var foundPerson = people.filter(function(person){
-    if(person.weight === weight){
+    if(person.weight == weight){
       return true;
     }
     else{
